@@ -14,8 +14,8 @@ docker logs -f my-running-worker
 docker stop my-running-worker
 (to destroy)
 docker rm my-running-worker
-- [ ] **Orchestration (Nomad)**
-      
+- [V] **Orchestration (Nomad)**
+basically almost the same as k8s, but it runs vms, binaries, not only containerization. while k8s have the whole ecosystem, nomad relies heavily on the scheduling part, leaving everything to the consul side to be taken care of. it is lightweight, simple learning curve rather than k8s
 - [ ] **Service Discovery & Networking (Consul)**
       
 - [ ] **Continuous Integration / Continuous Deployment (CI/CD)**
