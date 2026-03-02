@@ -5,8 +5,15 @@ This repository contains the configuration, infrastructure as code, and CI/CD pi
 ## 📚 Prerequisites & Concepts to Master
 Before executing the deployment phases, ensure a solid understanding of the following core concepts:
 
-- [ ] **Containerization (Docker)**
-      
+- [V] **Containerization (Docker)**
+docker build -t sentinel-worker:v1.0 .
+docker login
+docker run -d --name my-running-worker sentinel-worker:v1.0
+docker logs -f my-running-worker
+(to stop)
+docker stop my-running-worker
+(to destroy)
+docker rm my-running-worker
 - [ ] **Orchestration (Nomad)**
       
 - [ ] **Service Discovery & Networking (Consul)**

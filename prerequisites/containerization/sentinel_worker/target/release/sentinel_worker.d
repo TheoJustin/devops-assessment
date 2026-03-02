@@ -1,0 +1,1 @@
+/Users/theo/Documents/Devops/assessment/prerequisites/containerization/sentinel_worker/target/release/sentinel_worker: /Users/theo/Documents/Devops/assessment/prerequisites/containerization/sentinel_worker/src/main.rs
