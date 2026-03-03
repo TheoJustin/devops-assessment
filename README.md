@@ -37,15 +37,22 @@ Acts as a dynamic load balancer/service registry. Unlike traditional static bala
 
 ## 🚀 Execution Roadmap
 
-### Phase 1: Infrastructure Initialization (Task 1)
+### Phase 1: Infrastructure Initialization ✅
 *Goal: Provision the underlying server and establish the Nomad/Consul control plane.*
 
-- [ ] Provision the local Linux environment (WSL2/Ubuntu or Multipass/macOS).
-- [ ] Install Docker Engine.
-- [ ] Download and install the Nomad and Consul binaries.
-- [ ] Create a `consul.hcl` file to start Consul in server/client mode, and start the process.
-- [ ] Create a `nomad.hcl` file, configuring it to connect to Consul, and start the process.
-- [ ] Verify access to `localhost:8500` (Consul) and `localhost:4646` (Nomad).
+- [x] **Provision Environment:** Set up on macOS (local).
+- [x] **Install Docker Engine:** Docker Desktop for Mac installed and running.
+- [x] **Install Binaries:** ```bash
+  brew tap hashicorp/tap
+  brew install hashicorp/tap/nomad hashicorp/tap/consul
+  nomad -version
+  consul -version
+- [x] Consul Configuration: Created consul.hcl and initialized:
+consul agent -config-file=consul.hcl
+- [x] Nomad Configuration: Created nomad.hcl (linked to Consul) and initialized:
+sudo nomad agent -config=nomad.hcl
+- [x] Verify Access: Confirmed UIs at localhost:8500 (Consul) and localhost:4646 (Nomad).
+
 
 ### Phase 2: Application Orchestration (Task 2)
 *Goal: Automate the deployment of a containerized backend service.*
