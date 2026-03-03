@@ -21,8 +21,11 @@ basically almost the same as traditional load balancer, like nginx, HAproxy, F5,
 - [V] **Continuous Integration / Continuous Deployment (CI/CD)**
 Continuous Integration is a "runner". It builds, test, lint and generates the outcome. If any errors occured, shows it and it needs to be regenerated. Continuous Development is instead the "delivery". It has phases to release, deploy, and update the images. The images will be sent to production where everyone sees. It basically simplifies all the process into a single "git push"
 
-- [ ] **Observability (Prometheus, Grafana, Loki)**
-      
+- [V] **Observability (Prometheus, Grafana, Loki)**
+prometheus -> "numbers" -> checks for requests, gpu/cpu usage, and so on.
+loki -> "text" -> checks for docker logs obtained from promtail. it tells the "how" it happened while seeing the numbers anomaly from prometheus.
+grafana -> visualization on prometheus and loki, seeing if there is any red includes in here.
+tempo -> while we see the how the error happened, or where it goes wrong we cannot trace the process of where it went wrong. this is what tempo is used for, checking traces and seeing if any process is interrupted.
 
 ---
 
