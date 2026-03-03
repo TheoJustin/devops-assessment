@@ -1,31 +1,37 @@
 # Local DevOps Infrastructure & Deployment Pipeline
 
-This repository contains the configuration, infrastructure as code, and CI/CD pipelines for a complete, single-node DevOps environment. It simulates a production-grade distributed system locally using HashiCorp Nomad, Consul, Docker, and a modern observability stack.
+This repository contains the configuration, infrastructure as code, and CI/CD pipelines for a complete, single-node DevOps environment. It simulates a production-grade distributed system locally using **HashiCorp Nomad**, **Consul**, **Docker**, and a modern **LGTM** observability stack.
+
+---
 
 ## 📚 Prerequisites & Concepts to Master
+
 Before executing the deployment phases, ensure a solid understanding of the following core concepts:
 
-- [V] **Containerization (Docker)**
-docker build -t sentinel-worker:v1.0 .
-docker login
-docker run -d --name my-running-worker sentinel-worker:v1.0
-docker logs -f my-running-worker
-(to stop)
-docker stop my-running-worker
-(to destroy)
-docker rm my-running-worker
-- [V] **Orchestration (Nomad)**
-basically almost the same as k8s, but it runs vms, binaries, not only containerization. while k8s have the whole ecosystem, nomad relies heavily on the scheduling part, leaving everything to the consul side to be taken care of. it is lightweight, simple learning curve rather than k8s
-- [V] **Service Discovery & Networking (Consul)**
-basically almost the same as traditional load balancer, like nginx, HAproxy, F5, but it is dynamic, meaning if there is a new server it just configures itself without human intervention rather than configuring just like any other traditional load balancers.
-- [V] **Continuous Integration / Continuous Deployment (CI/CD)**
-Continuous Integration is a "runner". It builds, test, lint and generates the outcome. If any errors occured, shows it and it needs to be regenerated. Continuous Development is instead the "delivery". It has phases to release, deploy, and update the images. The images will be sent to production where everyone sees. It basically simplifies all the process into a single "git push"
+### ✅ Containerization (Docker)
+* **Build:** `docker build -t sentinel-worker:v1.0 .`
+* **Registry:** `docker login`
+* **Run:** `docker run -d --name my-running-worker sentinel-worker:v1.0`
+* **Logs:** `docker logs -f my-running-worker`
+* **Stop:** `docker stop my-running-worker`
+* **Destroy:** `docker rm my-running-worker`
 
-- [V] **Observability (Prometheus, Grafana, Loki)**
-prometheus -> "numbers" -> checks for requests, gpu/cpu usage, and so on.
-loki -> "text" -> checks for docker logs obtained from promtail. it tells the "how" it happened while seeing the numbers anomaly from prometheus.
-grafana -> visualization on prometheus and loki, seeing if there is any red includes in here.
-tempo -> while we see the how the error happened, or where it goes wrong we cannot trace the process of where it went wrong. this is what tempo is used for, checking traces and seeing if any process is interrupted.
+### ✅ Orchestration (Nomad)
+Similar to Kubernetes but lightweight and versatile. While K8s provides a massive ecosystem, Nomad focuses strictly on **scheduling** tasks (containers, VMs, or binaries), leaving service networking to Consul. It offers a simpler learning curve and is highly efficient.
+
+### ✅ Service Discovery & Networking (Consul)
+Acts as a dynamic load balancer/service registry. Unlike traditional static balancers (Nginx, HAProxy, F5), Consul is **self-configuring**. When a new service instance spins up, it automatically registers itself without human intervention.
+
+### ✅ CI/CD (GitHub Actions)
+* **Continuous Integration (CI):** The "Quality Control." Automated runners build, test, and lint code. If errors occur, the build fails before reaching production.
+* **Continuous Deployment (CD):** The "Delivery." Automates the release, deployment, and updating of images. It simplifies the entire workflow into a single `git push`.
+
+### ✅ Observability (LGTM Stack)
+
+* **Prometheus:** **The "Numbers" (Metrics).** Monitors request counts, CPU/GPU usage, and memory.
+* **Loki:** **The "Text" (Logs).** Ingests logs via Promtail to explain the "How" behind an anomaly seen in the metrics.
+* **Tempo:** **The "Waterfall" (Traces).** Traces the lifecycle of a request to pinpoint exactly where a process was interrupted or delayed.
+* **Grafana:** **The "Dashboard" (Visualization).** Provides a unified UI to visualize metrics and logs, allowing for rapid identification of "red" (failed) states.
 
 ---
 
