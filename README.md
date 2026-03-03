@@ -16,8 +16,8 @@ docker stop my-running-worker
 docker rm my-running-worker
 - [V] **Orchestration (Nomad)**
 basically almost the same as k8s, but it runs vms, binaries, not only containerization. while k8s have the whole ecosystem, nomad relies heavily on the scheduling part, leaving everything to the consul side to be taken care of. it is lightweight, simple learning curve rather than k8s
-- [ ] **Service Discovery & Networking (Consul)**
-      
+- [V] **Service Discovery & Networking (Consul)**
+basically almost the same as traditional load balancer, like nginx, HAproxy, F5, but it is dynamic, meaning if there is a new server it just configures itself without human intervention rather than configuring just like any other traditional load balancers.
 - [ ] **Continuous Integration / Continuous Deployment (CI/CD)**
       
 - [ ] **Observability (Prometheus, Grafana, Loki)**
