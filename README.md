@@ -42,7 +42,7 @@ Acts as a dynamic load balancer/service registry. Unlike traditional static bala
 
 - [x] **Provision Environment:** Set up on macOS (local).
 - [x] **Install Docker Engine:** Docker Desktop for Mac installed and running.
-- [x] **Install Binaries:** ```bash
+- [x] **Install Binaries:**
   brew tap hashicorp/tap
   brew install hashicorp/tap/nomad hashicorp/tap/consul
   nomad -version
