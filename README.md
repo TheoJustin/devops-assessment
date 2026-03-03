@@ -18,8 +18,9 @@ docker rm my-running-worker
 basically almost the same as k8s, but it runs vms, binaries, not only containerization. while k8s have the whole ecosystem, nomad relies heavily on the scheduling part, leaving everything to the consul side to be taken care of. it is lightweight, simple learning curve rather than k8s
 - [V] **Service Discovery & Networking (Consul)**
 basically almost the same as traditional load balancer, like nginx, HAproxy, F5, but it is dynamic, meaning if there is a new server it just configures itself without human intervention rather than configuring just like any other traditional load balancers.
-- [ ] **Continuous Integration / Continuous Deployment (CI/CD)**
-      
+- [V] **Continuous Integration / Continuous Deployment (CI/CD)**
+Continuous Integration is a "runner". It builds, test, lint and generates the outcome. If any errors occured, shows it and it needs to be regenerated. Continuous Development is instead the "delivery". It has phases to release, deploy, and update the images. The images will be sent to production where everyone sees. It basically simplifies all the process into a single "git push"
+
 - [ ] **Observability (Prometheus, Grafana, Loki)**
       
 
