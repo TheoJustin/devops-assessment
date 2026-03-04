@@ -20,6 +20,12 @@ job "hubspot-broken" {
         ports = ["http"]
       }
 
+      env {
+        DATABASE_URL = "sqlite:///local_staging.db"
+        ENVIRONMENT  = "staging"
+        FLASK_ENV    = "staging"
+      }
+
       resources {
         cpu    = 200
         memory = 256
@@ -31,7 +37,7 @@ job "hubspot-broken" {
 
         check {
           type     = "http"
-          path     = "/api/v1/status"
+          path     = "/scan/health"
           interval = "10s"
           timeout  = "2s"
         }
