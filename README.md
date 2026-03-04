@@ -98,15 +98,18 @@ plugin "docker" {
 ### Phase 4: Chaos & Resolution (Task 4)
 *Goal: Troubleshoot and resolve a simulated production outage.*
 
-- [ ] Deploy the provided "broken" `.nomad` file.
-- [ ] Use the Nomad UI, `nomad alloc status`, and the newly set up Loki logs to trace the failure (e.g., Out-of-memory error? Failed Consul health check? Bad Docker image tag?).
-- [ ] Apply the fix, redeploy, and document the root cause below.
+- [x] Deploy the provided "broken" `.nomad` file.
+- [x] Use the Nomad UI, `nomad alloc status`, and the newly set up Loki logs to trace the failure (e.g., Out-of-memory error? Failed Consul health check? Bad Docker image tag?).
+- [x] Apply the fix, redeploy, and document the root cause below.
 
 ---
 
 ## 🛠️ Troubleshooting Log
 *(Document your findings from Phase 4 here)*
 
-* **Issue Identified:** [Add description]
-* **Debugging Steps Taken:** [Add steps]
-* **Resolution:** [Add fix]
+* **Issue Identified:** A simulated production outage caused a deployment to hang indefinitely in an "unhealthy" state. 
+* **Debugging Steps Taken:** 1. Checked `nomad alloc status` to verify the container was actually starting.
+  2. Used Grafana/Loki to stream the live container logs and identified a fatal "database error" and 500 status codes.
+  3. Inspected the job specification and found two sabotaged configurations: missing environment variables and an incorrect Consul health check path.
+* **Resolution:** 1. Updated the Consul check path to the correct application endpoint (`/scan/health`).
+  2. Injected the missing `env` block into the Nomad task to provide the required `DATABASE_URL`. Redeployed successfully.
