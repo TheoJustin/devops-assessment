@@ -54,14 +54,24 @@ sudo nomad agent -config=nomad.hcl
 - [x] Verify Access: Confirmed UIs at localhost:8500 (Consul) and localhost:4646 (Nomad).
 
 
-### Phase 2: Application Orchestration (Task 2)
+### Phase 2: Application Orchestration (Task 2) ✅
 *Goal: Automate the deployment of a containerized backend service.*
 
-- [ ] Fork/Clone the provided backend repository to the GitHub account.
-- [ ] Write a `.nomad` job specification file defining the Docker image, CPU/Memory limits, and Consul service registration details.
-- [ ] Set up a GitHub Actions Self-Hosted Runner on the local VM.
-- [ ] Write the `.github/workflows/deploy.yml` pipeline to build the Docker image and trigger the `nomad run` command.
-- [ ] Push code to trigger the pipeline and verify the app appears in the Nomad UI.
+* [x] **Repository Setup:** Fork/Clone the provided backend repository to the GitHub account.
+* [x] **Job Specification:** Write a `.nomad` job specification file defining the Docker image, CPU/Memory limits, and Consul service registration details.
+* [x] **CI/CD Runner:** Set up a GitHub Actions Self-Hosted Runner on the local machine.
+* [x] **Pipeline Creation:** Write the `.github/workflows/deploy.yml` pipeline to build the Docker image and trigger the `nomad run` command.
+* [x] **Deployment:** Push code to trigger the pipeline and verify the app appears in the Nomad UI.
+
+**📝 Key Learnings & Debugging Notes:**
+* **Environment Prerequisites:** Ensure both Nomad and Consul are actively running in the background on the local machine before triggering deployments. *Note: Admin privileges (`sudo`) are often required when starting the Nomad agent.*
+* **CI/CD Pipeline Secrets:** GitHub Actions requires repository secrets to be configured (e.g., Docker credentials) so the runner can successfully log in and push images to your registry.
+* **Pipeline Troubleshooting:** When debugging failed deployments, the **Actions** tab in the GitHub repository is the best place to trace workflow step errors.
+* **Essential Nomad CLI Commands:**
+    * Check job status: `nomad job status <job-name>` *(e.g., hubspot-backend)*
+    * Check allocation status: `nomad alloc status <alloc-id>`
+    * View container logs: `nomad alloc logs <alloc-id>`
+    * Check for port mismatch (from Dockerfile.staging to the nomad file)
 
 ### Phase 3: The Observability Stack (Task 3)
 *Goal: Implement metrics, logging, and visualization for the cluster.*
