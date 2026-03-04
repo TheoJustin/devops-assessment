@@ -78,6 +78,7 @@ sudo nomad agent -config=nomad.hcl
 
 - [ ] Write a Nomad job spec for **Prometheus**. Configure `prometheus.yml` to use Consul service discovery to automatically find the backend app and the Nomad/Consul agents.
 - [ ] Write a Nomad job spec for **Grafana**. Log into the UI, connect Prometheus as a data source, and import a Node Exporter dashboard.
+-> use 1860 as the template for grafana
 - [ ] Write a Nomad job spec for **Loki** and **Promtail** (the agent that ships logs to Loki). Configure it to read the backend Docker container logs.
 
 ### Phase 4: Chaos & Resolution (Task 4)
