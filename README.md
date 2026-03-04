@@ -73,13 +73,27 @@ sudo nomad agent -config=nomad.hcl
     * View container logs: `nomad alloc logs <alloc-id>`
     * Check for port mismatch (from Dockerfile.staging to the nomad file)
 
-### Phase 3: The Observability Stack (Task 3)
+### Phase 3: The Observability Stack (Task 3) ✅
 *Goal: Implement metrics, logging, and visualization for the cluster.*
-
-- [ ] Write a Nomad job spec for **Prometheus**. Configure `prometheus.yml` to use Consul service discovery to automatically find the backend app and the Nomad/Consul agents.
-- [ ] Write a Nomad job spec for **Grafana**. Log into the UI, connect Prometheus as a data source, and import a Node Exporter dashboard.
--> use 1860 as the template for grafana
-- [ ] Write a Nomad job spec for **Loki** and **Promtail** (the agent that ships logs to Loki). Configure it to read the backend Docker container logs.
+[x] Write a Nomad job spec for Prometheus. Configure prometheus.yml to use Consul service discovery to automatically find the backend app and the Nomad/Consul agents.
+[x] Write a Nomad job spec for Grafana. Log into the UI, connect Prometheus as a data source, and import a Node Exporter dashboard (Template 1860).
+[x] Write a Nomad job spec for Loki and Promtail (the agent that ships logs to Loki). Configure it to read the backend Docker container logs.
+[x] GitOps Automation: Create a dedicated infrastructure pipeline (observability.yml) to automatically deploy .nomad.hcl files upon push.
+**📝 Key Learnings & Mitigation Strategies:**
+* **Infrastructure Pipeline vs. App Pipeline:** Observability tools (Layer 1) should be deployed via their own GitOps pipeline triggered exclusively by changes to .nomad.hcl files, separating them from application code (Layer 2) updates.
+* **Mac/Docker Networking (host.docker.internal):** Docker on Mac runs in a lightweight VM. For a container (like Prometheus) to reach a service running natively on the Mac (like Consul), you must use the special DNS name host.docker.internal rather than localhost.
+* **Nomad Host Volumes:** By default, Nomad disables mounting host directories for security. To allow Promtail to read Docker logs, you must explicitly enable volumes in your Nomad agent config:
+`
+plugin "docker" {
+  config {
+    volumes {
+      enabled = true
+    }
+  }
+}
+`
+* **The Root Privileges Trap (sudo):** Running Nomad with sudo forces temporary task directories (in /private/tmp) to be owned by root. Since Docker Desktop on Mac runs as a standard user, it will be denied permission to mount these directories. Mitigation: Run the Nomad agent as a standard user (nomad agent -dev) unless binding to protected ports (<1024).
+* **Ghost Processes:** If a sudo Nomad agent is interrupted incorrectly, it may leave a "ghost" process running in the background, locking up port 4647. Mitigation: Use sudo killall nomad to force-terminate lingering instances before restarting the agent.
 
 ### Phase 4: Chaos & Resolution (Task 4)
 *Goal: Troubleshoot and resolve a simulated production outage.*
